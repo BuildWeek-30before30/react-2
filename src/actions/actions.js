@@ -1,5 +1,6 @@
 import api from '../utils/api';
 
+export const SET_LOADING = 'SET_LOADING';
 export const FETCH_LISTS_START = 'FETCH_LISTS_START';
 export const FETCH_LISTS_SUCCESS = 'FETCH_LISTS_SUCCESS';
 export const FETCH_LISTS_FAIL = 'FETCH_LISTS_FAIL';
@@ -34,7 +35,8 @@ export const UPDATE_COMMENT_START = 'UPDATE_COMMENT_START';
 export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
 export const UPDATE_COMMENT_FAIL = 'UPDATE_COMMENT_FAIL';
 export const ERROR = 'ERROR';
-
+export const SET_CURRENT_ACTIVITY = 'SET_CURRENT_ACTIVITY';
+export const CLEAR_CURRENT_ACTIVITY = 'CLEAR_CURRENT_ACTIVITY';
 
 //GET all lists
 export const fetchLists = () => dispatch => {
@@ -141,11 +143,11 @@ export const deleteList = deleteList => dispatch => {
     })
 };
 
-// POST (add) activity
-export const addActivity = newActivity => dispatch => {
+// POST (add) item
+export const addItem = newItem => dispatch => {
   dispatch({ type: ADD_ACTIVITY_START})
   api
-    .post('/lists/:id/items', newActivity)
+    .post('/lists/:id/items', newItem)
     .then(response => {
       dispatch({
         type: ADD_ACTIVITY_SUCCESS,
@@ -153,8 +155,8 @@ export const addActivity = newActivity => dispatch => {
       })
     })
     .catch(error => {
-      console.log(error, 'actions/index.js, line 41, error adding activity');
-      alert('There was an arror adding your new activity. Please try again.');
+      console.log(error, 'actions/index.js, line 41, error adding item');
+      alert('There was an arror adding your new item. Please try again.');
       dispatch({
         type: ADD_ACTIVITY_FAIL,
         payload: error.response
@@ -162,11 +164,11 @@ export const addActivity = newActivity => dispatch => {
     })
 };
 
-// PUT (update/edit) activity by id
-export const updateActivity = updateActivity => dispatch => {
+// PUT (update/edit) item by id
+export const updateItem = updateItem => dispatch => {
   dispatch({ type: UPDATE_ACTIVITY_START})
   api
-    .put(`/lists/:id/items/${updateActivity.id}`, updateActivity)
+    .put(`/lists/:id/items/${updateItem.id}`, updateItem)
     .then(response => {
       dispatch({
         type: UPDATE_ACTIVITY_SUCCESS,
@@ -174,8 +176,8 @@ export const updateActivity = updateActivity => dispatch => {
       })
     })
     .catch(error => {
-      console.log(error, 'actions/index.js, line 56, error updating activity');
-      alert('There was an error updating the selected activity. Please try again.');
+      console.log(error, 'actions/index.js, line 56, error updating item');
+      alert('There was an error updating the selected item. Please try again.');
       dispatch({
         type: UPDATE_ACTIVITY_FAIL,
         payload: error.response
@@ -183,11 +185,11 @@ export const updateActivity = updateActivity => dispatch => {
     })
 };
 
-// DELETE activity by id
-export const deleteActivity = deleteActivity => dispatch => {
+// DELETE item by id
+export const deleteItem = deleteItem => dispatch => {
   dispatch({ type: DELETE_ACTIVITY_START})
   api
-    .delete(`/lists/:id/items/${deleteActivity.id}`, deleteActivity)
+    .delete(`/lists/:id/items/${deleteItem.id}`, deleteItem)
     .then(response => {
       dispatch({
         type: DELETE_ACTIVITY_SUCCESS,
@@ -195,8 +197,8 @@ export const deleteActivity = deleteActivity => dispatch => {
       })
     })
     .catch(error => {
-      console.log(error, 'actions/index.js, line 74, error deleting activity');
-      alert('There was an error deleting the selected activity. Please try again.');
+      console.log(error, 'actions/index.js, line 74, error deleting item');
+      alert('There was an error deleting the selected item. Please try again.');
       dispatch({
         type: DELETE_ACTIVITY_FAIL,
         payload: error.response
@@ -265,4 +267,25 @@ export const deleteComment = deleteComment => dispatch => {
         payload: error.response
       })
     })
+};
+
+// set loading to true
+export const setLoading = () => {
+  return {
+    type: SET_LOADING
+  };
+};
+
+// set current item
+export const setCurrentItem = item => {
+  return {
+    type: SET_CURRENT_ACTIVITY
+  };
+};
+
+// clear current item
+export const clearCurrentItem = item => {
+  return {
+    type: CLEAR_CURRENT_ACTIVITY
+  };
 };
