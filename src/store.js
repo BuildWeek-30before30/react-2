@@ -2,12 +2,12 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { rootReducer } from './reducers';
+import { itemReducer } from './reducers/itemReducer'
 
 const initialState = {};
 
 const store = createStore(
-  rootReducer,
+  itemReducer,
   initialState,
   composeWithDevTools(
     applyMiddleware(

@@ -1,4 +1,14 @@
-// https://buildweek30before30.herokuapp.com/api
+import React from 'react';
+import Item from './Item';
 
-import React, { useState, useEffect } from 'react';
-import api from '../utils/api';
+const ItemList = props => {
+  return (
+    <div className="items">
+      {props.items.map(item => {
+        return <Item key={item.id} item={item} />
+      })}
+    </div>
+  );
+};
+
+export default ItemList;

@@ -7,16 +7,16 @@ import {
   ADD_LIST_SUCCESS,
   UPDATE_LIST_SUCCESS,
   DELETE_LIST_SUCCESS,
-  ADD_ACTIVITY_SUCCESS,
-  DELETE_ACTIVITY_SUCCESS,
-  UPDATE_ACTIVITY_SUCCESS,
+  ADD_ITEM_SUCCESS,
+  DELETE_ITEM_SUCCESS,
+  UPDATE_ITEM_SUCCESS,
   ADD_COMMENT_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   UPDATE_COMMENT_SUCCESS,
   ERROR,
-  SET_CURRENT_ACTIVITY,
-  CLEAR_CURRENT_ACTIVITY
-} from '../actions/types';
+  SET_CURRENT_ITEM,
+  CLEAR_CURRENT_ITEM
+} from '../actions/actions';
 
 const initialState = {
   list: [],
@@ -80,7 +80,7 @@ export const itemReducer = ( state = initialState, action) => {
         lists: state.lists.filter(list =>
           list.id !== action.payload)
       };
-    case ADD_ACTIVITY_SUCCESS:
+    case ADD_ITEM_SUCCESS:
       return {
         ...state,
         list: [
@@ -88,13 +88,13 @@ export const itemReducer = ( state = initialState, action) => {
           action.payload
         ]
       };
-    case DELETE_ACTIVITY_SUCCESS:
+    case DELETE_ITEM_SUCCESS:
       return {
         ...state,
         items: state.items.filter(item =>
           item.id !== action.payload)
       };
-    case UPDATE_ACTIVITY_SUCCESS:
+    case UPDATE_ITEM_SUCCESS:
       return {
         ...state,
         items: state.items.map(item =>
@@ -139,12 +139,12 @@ export const itemReducer = ( state = initialState, action) => {
         ...state,
         loading: true
       };
-    case SET_CURRENT_ACTIVITY:
+    case SET_CURRENT_ITEM:
       return {
         ...state,
         current: action.payload
       };
-    case CLEAR_CURRENT_ACTIVITY:
+    case CLEAR_CURRENT_ITEM:
       return {
         ...state,
         current: null

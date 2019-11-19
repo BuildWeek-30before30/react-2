@@ -16,15 +16,15 @@ export const FETCH_LIST_FAIL = 'FETCH_LIST_FAIL';
 export const DELETE_LIST_START = 'DELETE_LIST_START';
 export const DELETE_LIST_SUCCESS = 'DELETE_LIST_SUCCESS';
 export const DELETE_LIST_FAIL = 'DELETE_LIST_FAIL';
-export const ADD_ACTIVITY_START = 'ADD_ACTIVITY_START';
-export const ADD_ACTIVITY_SUCCESS = 'ADD_ACTIVITY_SUCCESS';
-export const ADD_ACTIVITY_FAIL = 'ADD_ACTIVITY_FAIL';
-export const DELETE_ACTIVITY_START = 'DELETE_ACTIVITY_START';
-export const DELETE_ACTIVITY_SUCCESS = 'DELETE_ACTIVITY_SUCCESS';
-export const DELETE_ACTIVITY_FAIL = 'DELETE_ACTIVITY_FAIL';
-export const UPDATE_ACTIVITY_START = 'UPDATE_ACTIVITY_START';
-export const UPDATE_ACTIVITY_SUCCESS = 'UPDATE_ACTIVITY_SUCCESS';
-export const UPDATE_ACTIVITY_FAIL = 'UPDATE_ACTIVITY_FAIL';
+export const ADD_ITEM_START = 'ADD_ITEM_START';
+export const ADD_ITEM_SUCCESS = 'ADD_ITEM_SUCCESS';
+export const ADD_ITEM_FAIL = 'ADD_ITEM_FAIL';
+export const DELETE_ITEM_START = 'DELETE_ITEM_START';
+export const DELETE_ITEM_SUCCESS = 'DELETE_ITEM_SUCCESS';
+export const DELETE_ITEM_FAIL = 'DELETE_ITEM_FAIL';
+export const UPDATE_ITEM_START = 'UPDATE_ITEM_START';
+export const UPDATE_ITEM_SUCCESS = 'UPDATE_ITEM_SUCCESS';
+export const UPDATE_ITEM_FAIL = 'UPDATE_ITEM_FAIL';
 export const ADD_COMMENT_START = 'ADD_COMMENT_START';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAIL = 'ADD_COMMENT_FAIL';
@@ -35,8 +35,8 @@ export const UPDATE_COMMENT_START = 'UPDATE_COMMENT_START';
 export const UPDATE_COMMENT_SUCCESS = 'UPDATE_COMMENT_SUCCESS';
 export const UPDATE_COMMENT_FAIL = 'UPDATE_COMMENT_FAIL';
 export const ERROR = 'ERROR';
-export const SET_CURRENT_ACTIVITY = 'SET_CURRENT_ACTIVITY';
-export const CLEAR_CURRENT_ACTIVITY = 'CLEAR_CURRENT_ACTIVITY';
+export const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM';
+export const CLEAR_CURRENT_ITEM = 'CLEAR_CURRENT_ITEM';
 
 //GET all lists
 export const fetchLists = () => dispatch => {
@@ -145,12 +145,12 @@ export const deleteList = deleteList => dispatch => {
 
 // POST (add) item
 export const addItem = newItem => dispatch => {
-  dispatch({ type: ADD_ACTIVITY_START})
+  dispatch({ type: ADD_ITEM_START})
   api
     .post('/lists/:id/items', newItem)
     .then(response => {
       dispatch({
-        type: ADD_ACTIVITY_SUCCESS,
+        type: ADD_ITEM_SUCCESS,
         payload: response.data
       })
     })
@@ -158,7 +158,7 @@ export const addItem = newItem => dispatch => {
       console.log(error, 'actions/index.js, line 41, error adding item');
       alert('There was an arror adding your new item. Please try again.');
       dispatch({
-        type: ADD_ACTIVITY_FAIL,
+        type: ADD_ITEM_FAIL,
         payload: error.response
       })
     })
@@ -166,12 +166,12 @@ export const addItem = newItem => dispatch => {
 
 // PUT (update/edit) item by id
 export const updateItem = updateItem => dispatch => {
-  dispatch({ type: UPDATE_ACTIVITY_START})
+  dispatch({ type: UPDATE_ITEM_START})
   api
     .put(`/lists/:id/items/${updateItem.id}`, updateItem)
     .then(response => {
       dispatch({
-        type: UPDATE_ACTIVITY_SUCCESS,
+        type: UPDATE_ITEM_SUCCESS,
         payload: response.data
       })
     })
@@ -179,7 +179,7 @@ export const updateItem = updateItem => dispatch => {
       console.log(error, 'actions/index.js, line 56, error updating item');
       alert('There was an error updating the selected item. Please try again.');
       dispatch({
-        type: UPDATE_ACTIVITY_FAIL,
+        type: UPDATE_ITEM_FAIL,
         payload: error.response
       })
     })
@@ -187,12 +187,12 @@ export const updateItem = updateItem => dispatch => {
 
 // DELETE item by id
 export const deleteItem = deleteItem => dispatch => {
-  dispatch({ type: DELETE_ACTIVITY_START})
+  dispatch({ type: DELETE_ITEM_START})
   api
     .delete(`/lists/:id/items/${deleteItem.id}`, deleteItem)
     .then(response => {
       dispatch({
-        type: DELETE_ACTIVITY_SUCCESS,
+        type: DELETE_ITEM_SUCCESS,
         payload: response.data
       })
     })
@@ -200,7 +200,7 @@ export const deleteItem = deleteItem => dispatch => {
       console.log(error, 'actions/index.js, line 74, error deleting item');
       alert('There was an error deleting the selected item. Please try again.');
       dispatch({
-        type: DELETE_ACTIVITY_FAIL,
+        type: DELETE_ITEM_FAIL,
         payload: error.response
       })
     })
@@ -279,13 +279,22 @@ export const setLoading = () => {
 // set current item
 export const setCurrentItem = item => {
   return {
-    type: SET_CURRENT_ACTIVITY
+    type: SET_CURRENT_ITEM
   };
 };
 
 // clear current item
 export const clearCurrentItem = item => {
   return {
-    type: CLEAR_CURRENT_ACTIVITY
+    type: CLEAR_CURRENT_ITEM
+  };
+};
+
+// toggle complete
+export const TOGGLE_COMPLETE = "TOGGLE_COMPLETE";
+
+export function toggleComplete() {
+  return {
+    type: TOGGLE_COMPLETE
   };
 };
